@@ -64,6 +64,8 @@ jobs:
           path: dist/create-ci-cd-pipeline
 
       - name: Deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install -g angular-cli-ghpages
           git config --global user.email "prashantwakodikar@users.noreply.github.com"
