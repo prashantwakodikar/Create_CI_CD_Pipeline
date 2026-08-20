@@ -73,7 +73,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install -g angular-cli-ghpages
-          npx angular-cli-ghpages --dir=dist/create-ci-cd-pipeline --branch=gh-pages --repo=https://x-access-token:${GITHUB_TOKEN}@github.com/prashantwakodikar/Create_CI_CD_Pipeline.git
-      
+          npx angular-cli-ghpages \
+            --dir=dist/create-ci-cd-pipeline \
+            --branch=gh-pages \
+            --repo=https://x-access-token:${GITHUB_TOKEN}@github.com/prashantwakodikar/Create_CI_CD_Pipeline.git
+            
       - name: Verify Deployment
         run: curl -I https://prashantwakodikar.github.io/Create_CI_CD_Pipeline/
