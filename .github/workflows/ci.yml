@@ -66,7 +66,10 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           npm install -g angular-cli-ghpages
+          git config --global user.email "prashantwakodikar@users.noreply.github.com"
+          git config --global user.name "prashantwakodikar"
           npx angular-cli-ghpages --dir=dist/create-ci-cd-pipeline --branch=gh-pages
+
       
       - name: Verify Deployment
         run: curl -I https://prashantwakodikar.github.io/Create_CI_CD_Pipeline/
