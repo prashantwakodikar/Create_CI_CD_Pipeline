@@ -43,17 +43,30 @@ jobs:
       # Step 5: Compile the production-ready static assets
       - name: Build Application
         run: npm run build --configuration=production
+
+      # Step6: Upload the build artifacts  
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-folder
+          path: create-ci-cd-pipeline/dist/create-ci-cd-pipeline
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: create-ci-cd-pipeline
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-folder
+          path: dist/create-ci-cd-pipeline
+
       - name: Deploy to GitHub Pages
         run: |
           npm install -g angular-cli-ghpages
-          npx angular-cli-ghpages --dir=dist/create-ci-cd-pipeline
+          npx angular-cli-ghpages --dir=dist/create-ci-cd-pipeline --branch=gh-pages
+      
+      - name: Verify Deployment
+        run: curl -I https://prashantwakodikar.github.io/Create_CI_CD_Pipeline/
