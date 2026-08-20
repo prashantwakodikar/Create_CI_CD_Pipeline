@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        Working-directory: create-ci-cd-pipeline
+        working-directory: create-ci-cd-pipeline
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps: 
       # Step 1: Download the repository code onto the runner
