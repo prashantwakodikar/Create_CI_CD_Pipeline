@@ -1,0 +1,31 @@
+deploy:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist-folder
+        path: dist/create-ci-cd-pipeline
+
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+    - name: Deploy to Azure Storage
+      run: |
+        az storage blob upload-batch \
+          --account-name myangularstorage \
+          --destination '$web' \
+          --source dist/create-ci-cd-pipeline/browser
+
+    - name: Purge Azure CDN cache
+      run: |
+        az cdn endpoint purge \
+          --resource-group myResourceGroup \
+          --profile-name myCDNProfile \
+          --name myCDNEndpoint \
+          --content-paths "/*"
