@@ -22,11 +22,11 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps: 
       # Step 1: Download the repository code onto the runner
-      - name: checkout source code
+      - name: Checkout source code
         uses: actions/checkout@v4
       
       # Step 2: Set up Node.js with caching enabled
-      - name: setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with: 
           node-version: 24
@@ -43,3 +43,17 @@ jobs:
       # Step 5: Compile the production-ready static assets
       - name: Build Application
         run: npm run build --configuration=production
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: create-ci-cd-pipeline
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        run: |
+          npm install -g angular-cli-ghpages
+          npx angular-cli-ghpages --dir=dist/create-ci-cd-pipeline
