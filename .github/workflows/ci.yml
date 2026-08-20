@@ -16,7 +16,9 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        Working-directory: create-ci-cd-pipeline
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps: 
       # Step 1: Download the repository code onto the runner
@@ -29,6 +31,7 @@ jobs:
         with: 
           node-version: 20
           cache: 'npm'
+          cache-dependency-path: create-ci-cd-pipeline/package-lock.json
       # Step 3: Install all dependencies exactly as defined in package-lock.json
       - name: Install dependencies
         run: npm ci
