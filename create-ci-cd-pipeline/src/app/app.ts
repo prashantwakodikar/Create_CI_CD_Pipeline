@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('create-ci-cd-pipeline 004');
+  protected readonly title = signal('Abyeeeeeee CI CD workflow create jhala naa............');
 }
