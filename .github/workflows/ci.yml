@@ -29,7 +29,7 @@ jobs:
       - name: setup Node.js
         uses: actions/setup-node@v4
         with: 
-          node-version: 20
+          node-version: 24
           cache: 'npm'
           cache-dependency-path: create-ci-cd-pipeline/package-lock.json
       # Step 3: Install all dependencies exactly as defined in package-lock.json
