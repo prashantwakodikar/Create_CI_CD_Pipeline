@@ -63,15 +63,17 @@ jobs:
           name: dist-folder
           path: dist/create-ci-cd-pipeline
 
+      - name: Configure Git identity
+        run: |
+          git config --global user.email "prashantwakodikar@users.noreply.github.com"
+          git config --global user.name "prashantwakodikar"
+
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install -g angular-cli-ghpages
-          git config --global user.email "prashantwakodikar@users.noreply.github.com"
-          git config --global user.name "prashantwakodikar"
-          npx angular-cli-ghpages --dir=dist/create-ci-cd-pipeline --branch=gh-pages
-
+          npx angular-cli-ghpages --dir=dist/create-ci-cd-pipeline --branch=gh-pages --repo=https://x-access-token:${GITHUB_TOKEN}@github.com/prashantwakodikar/Create_CI_CD_Pipeline.git
       
       - name: Verify Deployment
         run: curl -I https://prashantwakodikar.github.io/Create_CI_CD_Pipeline/
